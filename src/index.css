@@ -1,0 +1,275 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.625rem;
+
+    /* EcoBay Air Command palette */
+    --eb-bg: #050810;
+    --eb-panel: #0c1220;
+    --eb-panel2: #111a2b;
+    --eb-line: #1a2540;
+    --eb-mint: #00cf78;
+    --eb-teal: #00554b;
+    --eb-mint-soft: #ceeec6;
+    --eb-coral: #e94545;
+    --eb-cyan: #22d3ee;
+    --eb-amber: #fbbf24;
+    --eb-red: #f87171;
+    --eb-text: #e9f2ec;
+    --eb-muted: #8fa39a;
+  }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--eb-bg);
+  color: var(--eb-text);
+  font-family: "Inter", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-mono-eb {
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, "PingFang SC", "Microsoft YaHei", monospace;
+}
+
+/* ---------- scrollbars ---------- */
+.eb-scroll::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.eb-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.eb-scroll::-webkit-scrollbar-thumb {
+  background: #1a2540;
+  border-radius: 3px;
+}
+.eb-scroll::-webkit-scrollbar-thumb:hover {
+  background: #00cf78;
+}
+.eb-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #1a2540 transparent;
+}
+
+/* ---------- scanline / noise material ---------- */
+.eb-scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.015) 0px,
+    rgba(255, 255, 255, 0.015) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  z-index: 40;
+}
+
+.eb-glow-mint {
+  box-shadow: 0 0 18px rgba(0, 207, 120, 0.35);
+}
+
+/* ---------- animations ---------- */
+@keyframes eb-pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+}
+.eb-pulse-dot {
+  animation: eb-pulse-dot 1.5s ease-in-out infinite;
+}
+
+@keyframes eb-radar-sweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.eb-radar-sweep {
+  animation: eb-radar-sweep 4.2s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes eb-radar-blip {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  15% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  70% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.15);
+  }
+}
+.eb-radar-blip {
+  animation: eb-radar-blip 4.2s ease-out infinite;
+}
+
+@keyframes eb-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.eb-marquee {
+  animation: eb-marquee 36s linear infinite;
+}
+.eb-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes eb-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.eb-fade-up {
+  animation: eb-fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes eb-screen-in {
+  from {
+    opacity: 0;
+    transform: translateX(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.eb-screen-in {
+  animation: eb-screen-in 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes eb-ring-ping {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+.eb-ring-ping {
+  animation: eb-ring-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes eb-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.eb-toast-in {
+  animation: eb-toast-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes eb-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.eb-spin {
+  animation: eb-spin 0.9s linear infinite;
+}
+
+@keyframes eb-flow-dash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+.eb-flow-dash {
+  animation: eb-flow-dash 1.6s linear infinite;
+}
+
+@keyframes eb-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.eb-breathe {
+  animation: eb-breathe 2.6s ease-in-out infinite;
+}
+
+/* arc gauge needle transition */
+.eb-gauge-arc {
+  transition: stroke-dashoffset 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* stage background grid */
+.eb-stage-grid {
+  background-image: linear-gradient(rgba(26, 37, 64, 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 37, 64, 0.35) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, black 30%, transparent 75%);
+}
+
+::selection {
+  background: rgba(0, 207, 120, 0.35);
+  color: #e9f2ec;
+}
+
+input {
+  caret-color: #00cf78;
+}
